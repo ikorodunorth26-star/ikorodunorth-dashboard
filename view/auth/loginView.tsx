@@ -3,14 +3,8 @@
 import { useState } from "react"
 import { cn } from "@/lib"
 import { Button, Input } from "@heroui/react"
-import { FaEye, FaEyeSlash, FaGithub } from "react-icons/fa"
-import { FcGoogle } from "react-icons/fc"
-import {
-  Field,
-  FieldGroup,
-  FieldLabel,
-  FieldSeparator,
-} from "@/components/ui/field"
+import { FaEye, FaEyeSlash } from "react-icons/fa"
+import { Field, FieldGroup, FieldLabel } from "@/components/ui/field"
 import Link from "next/link"
 
 const LoginView = ({ className, ...props }: React.ComponentProps<"div">) => {
@@ -20,9 +14,9 @@ const LoginView = ({ className, ...props }: React.ComponentProps<"div">) => {
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <div className="bg-background p-1.5 py-8">
         <div className="pb-5">
-          <h1 className="pb-2 text-2xl font-semibold">Welcome back 👋 </h1>
+          <h1 className="pb-2 text-2xl font-bold text-foreground">Welcome back</h1>
           <p className="text-sm font-medium text-muted-foreground">
-            sign-in to continue to your dashboard
+            Sign in to the Ikorodu North LCDA dashboard
           </p>
         </div>
         <div className="pt-3">
@@ -75,34 +69,11 @@ const LoginView = ({ className, ...props }: React.ComponentProps<"div">) => {
               <Field className="pb-4">
                 <Button
                   type="submit"
-                  className="rounded-md bg-black text-white hover:bg-black/90 dark:bg-white dark:text-black dark:hover:bg-white/90"
+                  className="h-11 w-full rounded-full bg-accent font-medium text-accent-foreground hover:bg-accent/80"
                 >
                   Login
                 </Button>
               </Field>
-              <FieldSeparator>or</FieldSeparator>
-              <Field className="pt-4">
-                <Button variant="outline" type="button" className="rounded-md">
-                  <FcGoogle className="size-4" aria-hidden="true" />
-                  Continue with Google
-                </Button>
-                <Button variant="outline" type="button" className="rounded-md">
-                  <FaGithub
-                    className="size-4 text-black dark:text-white"
-                    aria-hidden="true"
-                  />
-                  Continue with GitHub
-                </Button>
-              </Field>
-              <p className="pt-2 text-center text-sm text-muted-foreground">
-                Don&apos;t have an account?{" "}
-                <Link
-                  href="/auth/signup"
-                  className="font-medium text-foreground no-underline hover:text-primary"
-                >
-                  Sign up
-                </Link>
-              </p>
             </FieldGroup>
           </form>
         </div>

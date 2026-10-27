@@ -78,7 +78,7 @@ const VerifyView = ({ className, ...props }: React.ComponentProps<"div">) => {
               <Field className="m-auto w-full items-center pb-4">
                 <Button
                   type="submit"
-                  className="mx-auto w-full max-w-[70%] rounded-md bg-black text-white hover:bg-black/90 dark:bg-white dark:text-black dark:hover:bg-white/90"
+                  className="mx-auto w-full max-w-[70%] h-11 w-full rounded-full bg-accent font-medium text-accent-foreground hover:bg-accent/80"
                 >
                   Verify Account
                 </Button>

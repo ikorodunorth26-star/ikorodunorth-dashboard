@@ -32,7 +32,7 @@ const ForgotView = ({ className, ...props }: React.ComponentProps<"div">) => {
               <Field className="">
                 <Button
                   type="submit"
-                  className="rounded-md bg-black text-white hover:bg-black/90 dark:bg-white dark:text-black dark:hover:bg-white/90"
+                  className="h-11 w-full rounded-full bg-accent font-medium text-accent-foreground hover:bg-accent/80"
                 >
                   Find my account
                 </Button>
