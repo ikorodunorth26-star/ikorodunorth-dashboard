@@ -1,7 +1,16 @@
 import { apiRequest } from "./client"
 import type { ContentImage, ContentStatus } from "./content"
 
-export type SitePageKey = "about" | "landmarks"
+export type SitePageKey =
+  | "about"
+  | "landmarks"
+  | "contact"
+  | "suggest_project"
+  | "home"
+  | "departments"
+  | "navigation"
+  | "footer"
+  | "site_config"
 
 export type SitePageRecord = {
   id: string

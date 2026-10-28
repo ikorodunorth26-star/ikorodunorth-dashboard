@@ -60,3 +60,17 @@ export type {
   WardProject,
   WardRecord,
 } from "./places"
+export {
+  createDepartment,
+  deleteDepartment,
+  departmentGroupLabels,
+  departmentIconOptions,
+  getDepartment,
+  listDepartments,
+  updateDepartment,
+} from "./departments"
+export type {
+  DepartmentGroup,
+  DepartmentInput,
+  DepartmentRecord,
+} from "./departments"
