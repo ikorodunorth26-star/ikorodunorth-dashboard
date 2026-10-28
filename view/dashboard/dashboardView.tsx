@@ -410,37 +410,64 @@ const DashboardView = () => {
               {stats.latestNews.length === 0 ? (
                 <p className="text-sm text-muted-foreground">No published news yet.</p>
               ) : (
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Story</TableHead>
-                      <TableHead>Category</TableHead>
-                      <TableHead className="text-right">Date</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
+                <>
+                  <div className="flex flex-col gap-3 md:hidden">
                     {stats.latestNews.map((story) => (
-                      <TableRow key={story.id}>
-                        <TableCell className="max-w-md whitespace-normal font-medium">
-                          <a
-                            href={`${publicSiteUrl}/news/${story.slug}`}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="underline-offset-4 hover:underline"
-                          >
-                            {story.title}
-                          </a>
-                        </TableCell>
-                        <TableCell>
+                      <article
+                        key={story.id}
+                        className="flex flex-col gap-2 rounded-xl border bg-muted/20 p-3"
+                      >
+                        <a
+                          href={`${publicSiteUrl}/news/${story.slug}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="font-medium underline-offset-4 hover:underline"
+                        >
+                          {story.title}
+                        </a>
+                        <div className="flex flex-wrap items-center justify-between gap-2">
                           <Badge variant="secondary">{story.category}</Badge>
-                        </TableCell>
-                        <TableCell className="text-right text-muted-foreground">
-                          {story.dateLabel}
-                        </TableCell>
-                      </TableRow>
+                          <span className="text-xs text-muted-foreground">
+                            {story.dateLabel}
+                          </span>
+                        </div>
+                      </article>
                     ))}
-                  </TableBody>
-                </Table>
+                  </div>
+                  <div className="hidden md:block">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>Story</TableHead>
+                          <TableHead>Category</TableHead>
+                          <TableHead className="text-right">Date</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {stats.latestNews.map((story) => (
+                          <TableRow key={story.id}>
+                            <TableCell className="max-w-md whitespace-normal font-medium">
+                              <a
+                                href={`${publicSiteUrl}/news/${story.slug}`}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="underline-offset-4 hover:underline"
+                              >
+                                {story.title}
+                              </a>
+                            </TableCell>
+                            <TableCell>
+                              <Badge variant="secondary">{story.category}</Badge>
+                            </TableCell>
+                            <TableCell className="text-right text-muted-foreground">
+                              {story.dateLabel}
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
+                </>
               )}
             </CardContent>
           </Card>
@@ -471,40 +498,70 @@ const DashboardView = () => {
                 {stats.projects.length === 0 ? (
                   <p className="text-sm text-muted-foreground">No published projects yet.</p>
                 ) : (
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>Project</TableHead>
-                        <TableHead>Place</TableHead>
-                        <TableHead className="text-right">Date</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
+                  <>
+                    <div className="flex flex-col gap-3 md:hidden">
                       {stats.projects.map((project) => (
-                        <TableRow key={project.id}>
-                          <TableCell className="max-w-sm whitespace-normal">
-                            <a
-                              href={`${publicSiteUrl}/projects/${project.slug}`}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="font-medium underline-offset-4 hover:underline"
-                            >
-                              {project.title}
-                            </a>
-                            <div className="mt-1">
-                              <Badge variant="outline">{project.category}</Badge>
-                            </div>
-                          </TableCell>
-                          <TableCell className="text-muted-foreground">
-                            {project.location}
-                          </TableCell>
-                          <TableCell className="text-right text-muted-foreground">
+                        <article
+                          key={project.id}
+                          className="flex flex-col gap-2 rounded-xl border bg-muted/20 p-3"
+                        >
+                          <a
+                            href={`${publicSiteUrl}/projects/${project.slug}`}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="font-medium underline-offset-4 hover:underline"
+                          >
+                            {project.title}
+                          </a>
+                          <div className="flex flex-wrap items-center gap-2">
+                            <Badge variant="outline">{project.category}</Badge>
+                            <span className="text-xs text-muted-foreground">
+                              {project.location}
+                            </span>
+                          </div>
+                          <span className="text-xs text-muted-foreground">
                             {project.dateLabel}
-                          </TableCell>
-                        </TableRow>
+                          </span>
+                        </article>
                       ))}
-                    </TableBody>
-                  </Table>
+                    </div>
+                    <div className="hidden md:block">
+                      <Table>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead>Project</TableHead>
+                            <TableHead>Place</TableHead>
+                            <TableHead className="text-right">Date</TableHead>
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          {stats.projects.map((project) => (
+                            <TableRow key={project.id}>
+                              <TableCell className="max-w-sm whitespace-normal">
+                                <a
+                                  href={`${publicSiteUrl}/projects/${project.slug}`}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  className="font-medium underline-offset-4 hover:underline"
+                                >
+                                  {project.title}
+                                </a>
+                                <div className="mt-1">
+                                  <Badge variant="outline">{project.category}</Badge>
+                                </div>
+                              </TableCell>
+                              <TableCell className="text-muted-foreground">
+                                {project.location}
+                              </TableCell>
+                              <TableCell className="text-right text-muted-foreground">
+                                {project.dateLabel}
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </div>
+                  </>
                 )}
               </CardContent>
             </Card>
@@ -525,37 +582,72 @@ const DashboardView = () => {
                 {stats.wards.length === 0 ? (
                   <p className="text-sm text-muted-foreground">No published wards yet.</p>
                 ) : (
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>Ward</TableHead>
-                        <TableHead className="text-right">Projects</TableHead>
-                        <TableHead className="text-right">Facilities</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
+                  <>
+                    <div className="flex flex-col gap-3 md:hidden">
                       {stats.wards.map((ward) => (
-                        <TableRow key={ward.id}>
-                          <TableCell className="font-medium">
-                            <a
-                              href={`${publicSiteUrl}/communities/${ward.slug}`}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="underline-offset-4 hover:underline"
-                            >
-                              {ward.name}
-                            </a>
-                          </TableCell>
-                          <TableCell className="text-right tabular-nums">
-                            {ward.projects?.length ?? 0}
-                          </TableCell>
-                          <TableCell className="text-right tabular-nums">
-                            {ward.facilities?.length ?? 0}
-                          </TableCell>
-                        </TableRow>
+                        <article
+                          key={ward.id}
+                          className="flex flex-col gap-2 rounded-xl border bg-muted/20 p-3"
+                        >
+                          <a
+                            href={`${publicSiteUrl}/communities/${ward.slug}`}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="font-medium underline-offset-4 hover:underline"
+                          >
+                            {ward.name}
+                          </a>
+                          <div className="flex gap-4 text-sm text-muted-foreground">
+                            <span>
+                              <span className="tabular-nums font-medium text-foreground">
+                                {ward.projects?.length ?? 0}
+                              </span>{" "}
+                              projects
+                            </span>
+                            <span>
+                              <span className="tabular-nums font-medium text-foreground">
+                                {ward.facilities?.length ?? 0}
+                              </span>{" "}
+                              facilities
+                            </span>
+                          </div>
+                        </article>
                       ))}
-                    </TableBody>
-                  </Table>
+                    </div>
+                    <div className="hidden md:block">
+                      <Table>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead>Ward</TableHead>
+                            <TableHead className="text-right">Projects</TableHead>
+                            <TableHead className="text-right">Facilities</TableHead>
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          {stats.wards.map((ward) => (
+                            <TableRow key={ward.id}>
+                              <TableCell className="font-medium">
+                                <a
+                                  href={`${publicSiteUrl}/communities/${ward.slug}`}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  className="underline-offset-4 hover:underline"
+                                >
+                                  {ward.name}
+                                </a>
+                              </TableCell>
+                              <TableCell className="text-right tabular-nums">
+                                {ward.projects?.length ?? 0}
+                              </TableCell>
+                              <TableCell className="text-right tabular-nums">
+                                {ward.facilities?.length ?? 0}
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </div>
+                  </>
                 )}
               </CardContent>
             </Card>

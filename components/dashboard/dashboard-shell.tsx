@@ -177,13 +177,13 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
           </SidebarFooter>
           <SidebarRail />
         </Sidebar>
-        <SidebarInset>
-          <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
+        <SidebarInset className="min-w-0 overflow-x-hidden">
+          <header className="flex h-14 shrink-0 items-center gap-2 border-b px-3 sm:h-16 sm:px-4">
             <SidebarTrigger className="-ml-1" />
             <div className="flex h-4 items-center">
               <Separator orientation="vertical" />
             </div>
-            <Breadcrumb>
+            <Breadcrumb className="min-w-0">
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:inline-flex">
                   <BreadcrumbLink asChild>
@@ -191,12 +191,14 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:inline-flex" />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>{current.label}</BreadcrumbPage>
+                <BreadcrumbItem className="min-w-0">
+                  <BreadcrumbPage className="truncate">
+                    {current.label}
+                  </BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
-            <div className="ml-auto flex items-center gap-3">
+            <div className="ml-auto flex min-w-0 items-center gap-2 sm:gap-3">
               {session ? (
                 <>
                   <div className="hidden min-w-0 text-right sm:block">
@@ -224,7 +226,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
               )}
             </div>
           </header>
-          <div className="flex flex-1 flex-col px-5 py-6 md:px-8 md:py-8">
+          <div className="flex min-w-0 flex-1 flex-col px-3 py-4 sm:px-5 sm:py-6 md:px-8 md:py-8">
             {children}
           </div>
         </SidebarInset>

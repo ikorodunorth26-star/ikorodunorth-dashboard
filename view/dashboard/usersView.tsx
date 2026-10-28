@@ -273,41 +273,81 @@ export function UsersView() {
             ) : users.length === 0 ? (
               <p className="text-sm text-muted-foreground">No staff accounts yet.</p>
             ) : (
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Name</TableHead>
-                    <TableHead>Role</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead className="text-right">Last login</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
+              <>
+                <div className="flex flex-col gap-3 md:hidden">
                   {users.map((user) => (
-                    <TableRow key={user.id}>
-                      <TableCell>
+                    <article
+                      key={user.id}
+                      className="flex flex-col gap-2 rounded-xl border bg-muted/20 p-3"
+                    >
+                      <div>
                         <p className="font-medium">
                           {user.firstName} {user.lastName}
                         </p>
-                        <p className="text-xs text-muted-foreground">{user.email}</p>
-                      </TableCell>
-                      <TableCell>
-                        <Badge variant="secondary">{staffRoleLabel(user.role)}</Badge>
-                      </TableCell>
-                      <TableCell>
+                        <p className="break-all text-xs text-muted-foreground">
+                          {user.email}
+                        </p>
+                      </div>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <Badge variant="secondary">
+                          {staffRoleLabel(user.role)}
+                        </Badge>
                         <Badge
                           variant={user.status === "ACTIVE" ? "default" : "outline"}
                         >
                           {user.status === "ACTIVE" ? "Active" : "Disabled"}
                         </Badge>
-                      </TableCell>
-                      <TableCell className="text-right text-muted-foreground">
-                        {formatWhen(user.lastLoginAt)}
-                      </TableCell>
-                    </TableRow>
+                      </div>
+                      <p className="text-xs text-muted-foreground">
+                        Last login: {formatWhen(user.lastLoginAt)}
+                      </p>
+                    </article>
                   ))}
-                </TableBody>
-              </Table>
+                </div>
+                <div className="hidden md:block">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Name</TableHead>
+                        <TableHead>Role</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead className="text-right">Last login</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {users.map((user) => (
+                        <TableRow key={user.id}>
+                          <TableCell>
+                            <p className="font-medium">
+                              {user.firstName} {user.lastName}
+                            </p>
+                            <p className="text-xs text-muted-foreground">
+                              {user.email}
+                            </p>
+                          </TableCell>
+                          <TableCell>
+                            <Badge variant="secondary">
+                              {staffRoleLabel(user.role)}
+                            </Badge>
+                          </TableCell>
+                          <TableCell>
+                            <Badge
+                              variant={
+                                user.status === "ACTIVE" ? "default" : "outline"
+                              }
+                            >
+                              {user.status === "ACTIVE" ? "Active" : "Disabled"}
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="text-right text-muted-foreground">
+                            {formatWhen(user.lastLoginAt)}
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              </>
             )}
           </CardContent>
         </Card>
