@@ -13,6 +13,7 @@ import {
   Invoice01Icon,
   Logout01Icon,
   News01Icon,
+  UserAdd01Icon,
   UserGroupIcon,
 } from "@hugeicons/core-free-icons"
 
@@ -62,6 +63,12 @@ const navigation = [
   { href: "/dashboard/pages", label: "Pages", icon: File01Icon },
   { href: "/dashboard/revenue", label: "Revenue", icon: Invoice01Icon },
   { href: "/dashboard/media", label: "Media", icon: Image01Icon },
+  {
+    href: "/dashboard/users",
+    label: "Users",
+    icon: UserAdd01Icon,
+    roles: ["SUPERADMIN"] as const,
+  },
 ]
 
 function isActive(pathname: string, href: string) {
@@ -77,8 +84,14 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const router = useRouter()
   const [session, setSession] = useState<AuthSession | null>(null)
+  const visibleNavigation = navigation.filter((item) => {
+    if (!("roles" in item) || !item.roles) return true
+    if (!session) return false
+    return item.roles.includes(session.user.role as (typeof item.roles)[number])
+  })
   const current =
-    navigation.find((item) => isActive(pathname, item.href)) ?? navigation[0]
+    visibleNavigation.find((item) => isActive(pathname, item.href)) ??
+    navigation[0]
 
   useEffect(() => {
     const currentSession = readSession()
@@ -134,7 +147,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
               <SidebarGroupLabel>Council</SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
-                  {navigation.map((item) => (
+                  {visibleNavigation.map((item) => (
                     <SidebarMenuItem key={item.href}>
                       <SidebarMenuButton
                         asChild

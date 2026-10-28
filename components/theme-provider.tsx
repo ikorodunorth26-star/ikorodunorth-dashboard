@@ -38,7 +38,8 @@ function ThemeProvider({ children }: { children: React.ReactNode }) {
         return
       }
 
-      if (event.key.toLowerCase() !== "d") {
+      const key = event.key?.toLowerCase()
+      if (!key || key !== "d") {
         return
       }
 

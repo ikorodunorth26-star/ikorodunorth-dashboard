@@ -14,6 +14,9 @@ export type StaffUser = {
   firstName: string
   lastName: string
   role: StaffRole
+  status?: "ACTIVE" | "DISABLED"
+  lastLoginAt?: string | null
+  createdAt?: string
 }
 
 export type AuthSession = {

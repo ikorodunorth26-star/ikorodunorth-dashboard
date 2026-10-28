@@ -1,4 +1,6 @@
 export { login, logout } from "./auth"
+export { createStaff, listStaff } from "./staff"
+export type { CreateStaffInput, StaffRecord, StaffStatus } from "./staff"
 export { ApiError, apiRequest } from "./client"
 export {
   createNews,
