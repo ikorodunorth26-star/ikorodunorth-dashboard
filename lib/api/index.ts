@@ -27,3 +27,13 @@ export type {
 } from "./content"
 export { uploadImage } from "./media"
 export type { UploadedImage } from "./media"
+export {
+  createPerson,
+  deletePerson,
+  getPerson,
+  listPeople,
+  teamMeta,
+  updatePerson,
+  updatePersonStatus,
+} from "./people"
+export type { PersonInput, PersonRecord, TeamGroup } from "./people"

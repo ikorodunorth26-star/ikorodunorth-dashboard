@@ -12,6 +12,7 @@ import {
   Invoice01Icon,
   Logout01Icon,
   News01Icon,
+  UserGroupIcon,
 } from "@hugeicons/core-free-icons"
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
@@ -56,6 +57,7 @@ const navigation = [
   { href: "/dashboard", label: "Overview", icon: DashboardSquare01Icon },
   { href: "/dashboard/news", label: "News", icon: News01Icon },
   { href: "/dashboard/projects", label: "Projects", icon: Briefcase01Icon },
+  { href: "/dashboard/people", label: "People", icon: UserGroupIcon },
   { href: "/dashboard/revenue", label: "Revenue", icon: Invoice01Icon },
   { href: "/dashboard/media", label: "Media", icon: Image01Icon },
 ]
