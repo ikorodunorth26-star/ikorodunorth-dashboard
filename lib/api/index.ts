@@ -37,3 +37,26 @@ export {
   updatePersonStatus,
 } from "./people"
 export type { PersonInput, PersonRecord, TeamGroup } from "./people"
+export { getPage, listPages, updatePage } from "./pages"
+export type { SitePageInput, SitePageKey, SitePageRecord } from "./pages"
+export {
+  createLandmark,
+  createWard,
+  deleteLandmark,
+  deleteWard,
+  getLandmark,
+  getWard,
+  landmarkGroupLabels,
+  listLandmarks,
+  listWards,
+  updateLandmark,
+  updateWard,
+} from "./places"
+export type {
+  LandmarkGroup,
+  LandmarkInput,
+  LandmarkRecord,
+  WardInput,
+  WardProject,
+  WardRecord,
+} from "./places"
