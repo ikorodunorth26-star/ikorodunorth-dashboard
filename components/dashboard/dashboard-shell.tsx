@@ -9,7 +9,6 @@ import {
   Briefcase01Icon,
   DashboardSquare01Icon,
   File01Icon,
-  Image01Icon,
   Invoice01Icon,
   Logout01Icon,
   News01Icon,
@@ -62,7 +61,6 @@ const navigation = [
   { href: "/dashboard/people", label: "People", icon: UserGroupIcon },
   { href: "/dashboard/pages", label: "Pages", icon: File01Icon },
   { href: "/dashboard/revenue", label: "Revenue", icon: Invoice01Icon },
-  { href: "/dashboard/media", label: "Media", icon: Image01Icon },
   {
     href: "/dashboard/users",
     label: "Users",
