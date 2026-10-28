@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 
+import { PhotoGallery } from "@/components/dashboard/content/photo-gallery"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ApiError, getNews, saveReturnPath, type NewsRecord } from "@/lib"
@@ -127,27 +128,7 @@ export function NewsDetailView({ id }: { id: string }) {
         <p className="text-sm text-muted-foreground">No body content yet.</p>
       )}
 
-      {article.gallery.length > 0 ? (
-        <section className="flex max-w-4xl flex-col gap-4">
-          <h2 className="text-xl font-semibold tracking-tight">Gallery</h2>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {article.gallery.map((photo) => (
-              <figure key={photo.id} className="flex flex-col gap-2">
-                <img
-                  src={photo.url}
-                  alt={photo.alt || article.title}
-                  className="aspect-[4/3] w-full rounded-xl object-cover"
-                />
-                {photo.caption ? (
-                  <figcaption className="text-sm text-muted-foreground">
-                    {photo.caption}
-                  </figcaption>
-                ) : null}
-              </figure>
-            ))}
-          </div>
-        </section>
-      ) : null}
+      <PhotoGallery photos={article.gallery} />
     </div>
   )
 }
