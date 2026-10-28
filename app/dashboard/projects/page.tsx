@@ -1,12 +1,7 @@
-import { DashboardSection } from "@/components/dashboard/dashboard-section"
+import { ProjectsView } from "@/view/dashboard/projectsView"
 
 const ProjectsPage = () => {
-  return (
-    <DashboardSection
-      title="Projects"
-      summary="Council projects across the five wards will be managed here."
-    />
-  )
+  return <ProjectsView />
 }
 
 export default ProjectsPage

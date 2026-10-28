@@ -1,12 +1,7 @@
-import { DashboardSection } from "@/components/dashboard/dashboard-section"
+import { NewsView } from "@/view/dashboard/newsView"
 
 const NewsPage = () => {
-  return (
-    <DashboardSection
-      title="News"
-      summary="Council announcements and community updates will be managed here."
-    />
-  )
+  return <NewsView />
 }
 
 export default NewsPage

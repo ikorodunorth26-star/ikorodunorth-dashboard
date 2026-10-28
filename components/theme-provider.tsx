@@ -1,25 +1,10 @@
 "use client"
 
-import * as React from "react"
-import { ThemeProvider as NextThemesProvider, useTheme } from "next-themes"
+import { useEffect } from "react"
 
-function ThemeProvider({
-  children,
-  ...props
-}: React.ComponentProps<typeof NextThemesProvider>) {
-  return (
-    <NextThemesProvider
-      attribute="class"
-      defaultTheme="light"
-      enableSystem={false}
-      disableTransitionOnChange
-      {...props}
-    >
-      <ThemeHotkey />
-      {children}
-    </NextThemesProvider>
-  )
-}
+import { themeStorageKey } from "@/lib/theme"
+
+type ThemeName = "light" | "dark"
 
 function isTypingTarget(target: EventTarget | null) {
   if (!(target instanceof HTMLElement)) {
@@ -34,15 +19,17 @@ function isTypingTarget(target: EventTarget | null) {
   )
 }
 
-function ThemeHotkey() {
-  const { resolvedTheme, setTheme } = useTheme()
+function applyTheme(theme: ThemeName) {
+  document.documentElement.classList.toggle("dark", theme === "dark")
+  document.documentElement.style.colorScheme = theme
+}
 
-  React.useEffect(() => {
-    function onKeyDown(event?: KeyboardEvent) {
-      if (!event) {
-        return
-      }
+function ThemeProvider({ children }: { children: React.ReactNode }) {
+  useEffect(() => {
+    const stored = window.localStorage.getItem(themeStorageKey)
+    applyTheme(stored === "dark" ? "dark" : "light")
 
+    function onKeyDown(event: KeyboardEvent) {
       if (event.defaultPrevented || event.repeat) {
         return
       }
@@ -51,8 +38,7 @@ function ThemeHotkey() {
         return
       }
 
-      const key = event.key?.toLowerCase?.() ?? ""
-      if (key !== "d") {
+      if (event.key.toLowerCase() !== "d") {
         return
       }
 
@@ -60,17 +46,20 @@ function ThemeHotkey() {
         return
       }
 
-      setTheme(resolvedTheme === "dark" ? "light" : "dark")
+      const next: ThemeName = document.documentElement.classList.contains("dark")
+        ? "light"
+        : "dark"
+      applyTheme(next)
+      window.localStorage.setItem(themeStorageKey, next)
     }
 
     window.addEventListener("keydown", onKeyDown)
-
     return () => {
       window.removeEventListener("keydown", onKeyDown)
     }
-  }, [resolvedTheme, setTheme])
+  }, [])
 
-  return null
+  return children
 }
 
 export { ThemeProvider }

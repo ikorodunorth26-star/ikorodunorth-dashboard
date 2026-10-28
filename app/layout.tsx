@@ -13,6 +13,14 @@ export const metadata: Metadata = {
     template: `%s · ${siteName}`,
   },
   description: siteDescription,
+  icons: {
+    icon: [
+      { url: "/images/ikorodu-north-lcda-logo.webp", type: "image/webp" },
+      { url: "/icon.png", type: "image/png" },
+    ],
+    apple: "/images/ikorodu-north-lcda-logo.webp",
+    shortcut: "/images/ikorodu-north-lcda-logo.webp",
+  },
 }
 
 export const viewport: Viewport = {
