@@ -1,7 +1,12 @@
 import { PersonForm } from "@/components/dashboard/content/person-form"
 import type { TeamGroup } from "@/lib"
 
-const teams = new Set<TeamGroup>(["executive", "council", "management"])
+const teams = new Set<TeamGroup>([
+  "executive",
+  "council",
+  "management",
+  "nulge",
+])
 
 const NewPersonPage = async ({
   searchParams,

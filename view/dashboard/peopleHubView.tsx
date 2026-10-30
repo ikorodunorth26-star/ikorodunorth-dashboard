@@ -16,7 +16,7 @@ import {
 } from "@/lib"
 import { publicSiteUrl } from "@/lib/brand"
 
-const teams: TeamGroup[] = ["executive", "council", "management"]
+const teams: TeamGroup[] = ["executive", "council", "management", "nulge"]
 
 function failure(error: unknown): string {
   return error instanceof ApiError ? error.message : "Request failed"
@@ -58,8 +58,8 @@ export function PeopleHubView() {
         </p>
         <h1 className="text-3xl font-semibold tracking-tight">People</h1>
         <p className="max-w-2xl text-sm leading-6 text-muted-foreground">
-          Review and publish the three public directories that sit behind the
-          government pages: Executive Council, Legislative House, and Management Team.
+          Review and publish the public directories behind the government pages:
+          Executive Council, Legislative House, Management Team, and NULGE Exco.
         </p>
       </div>
 
@@ -72,7 +72,7 @@ export function PeopleHubView() {
         </div>
       ) : null}
 
-      <div className="grid gap-4 lg:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {teams.map((team) => {
           const meta = teamMeta[team]
           const members = people.filter((person) => person.team === team)

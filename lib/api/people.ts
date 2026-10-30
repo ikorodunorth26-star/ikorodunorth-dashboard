@@ -1,7 +1,7 @@
 import { apiRequest } from "./client"
 import type { ContentImage, ContentStatus } from "./content"
 
-export type TeamGroup = "executive" | "council" | "management"
+export type TeamGroup = "executive" | "council" | "management" | "nulge"
 
 export type PersonRecord = {
   id: string
@@ -61,6 +61,13 @@ export const teamMeta: Record<
     description:
       "Administrative officers running departments from the secretariat.",
     publicPath: "/government/management-team",
+  },
+  nulge: {
+    label: "NULGE Exco",
+    shortLabel: "NULGE",
+    description:
+      "Nigeria Union of Local Government Employees executives for Ikorodu North.",
+    publicPath: "/government/nulge-exco",
   },
 }
 

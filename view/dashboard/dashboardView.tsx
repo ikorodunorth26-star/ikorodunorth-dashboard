@@ -223,6 +223,7 @@ const DashboardView = () => {
     const management = peoplePublished.filter(
       (item) => item.team === "management"
     ).length
+    const nulge = peoplePublished.filter((item) => item.team === "nulge").length
 
     const newsDrafts = data.news.length - newsPublished.length
     const projectDrafts = data.projects.length - projectsPublished.length
@@ -249,6 +250,7 @@ const DashboardView = () => {
       executive,
       legislative,
       management,
+      nulge,
       latestNews,
       projects,
     }
@@ -366,7 +368,7 @@ const DashboardView = () => {
             />
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
             <StatCard
               label="Executive officers"
               value={stats.executive}
@@ -381,6 +383,11 @@ const DashboardView = () => {
               label="Management team"
               value={stats.management}
               detail="Officers at the Isiu secretariat"
+            />
+            <StatCard
+              label="NULGE Exco"
+              value={stats.nulge}
+              detail="Staff union executives"
             />
             <StatCard
               label="Landmarks"

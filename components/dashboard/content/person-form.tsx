@@ -32,7 +32,7 @@ import {
 } from "@/lib"
 import { showNotification } from "@/lib/showNotification"
 
-const teams: TeamGroup[] = ["executive", "council", "management"]
+const teams: TeamGroup[] = ["executive", "council", "management", "nulge"]
 
 function failure(error: unknown): string {
   return error instanceof ApiError ? error.message : "Request failed"
@@ -137,10 +137,6 @@ export function PersonForm({
 
   async function save(event: FormEvent) {
     event.preventDefault()
-    if (status === "PUBLISHED" && !portrait) {
-      showNotification({ type: "error", message: "Portrait is required" })
-      return
-    }
     setSaving(true)
     try {
       const result = id
@@ -302,7 +298,10 @@ export function PersonForm({
           <Card>
             <CardHeader>
               <CardTitle>Portrait</CardTitle>
-              <CardDescription>Required before publishing.</CardDescription>
+              <CardDescription>
+                Recommended. Without a portrait, the public page shows a pending
+                placeholder.
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <FeaturedImageField
