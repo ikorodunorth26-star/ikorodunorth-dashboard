@@ -64,6 +64,7 @@ export const departmentIconOptions = [
   "store",
   "userRound",
   "landmark",
+  "compass",
   "bookOpen",
   "messageSquare",
   "fileCheck",
@@ -71,6 +72,11 @@ export const departmentIconOptions = [
   "receiptText",
   "files",
 ] as const
+
+export function departmentPublicHref(slug: string) {
+  const trimmed = slug.trim().replace(/^\/+|\/+$/g, "")
+  return trimmed ? `/government/departments/${trimmed}` : ""
+}
 
 export function listDepartments() {
   return apiRequest<{ departments: DepartmentRecord[] }>("/v1/departments")

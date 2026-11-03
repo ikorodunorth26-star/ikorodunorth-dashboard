@@ -67,6 +67,7 @@ export {
   deleteDepartment,
   departmentGroupLabels,
   departmentIconOptions,
+  departmentPublicHref,
   getDepartment,
   listDepartments,
   updateDepartment,

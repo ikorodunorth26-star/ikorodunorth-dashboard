@@ -156,6 +156,15 @@ export function DepartmentsView() {
                       Edit
                     </Link>
                   </Button>
+                  <Button variant="ghost" size="sm" asChild>
+                    <a
+                      href={`${publicSiteUrl}${department.publicHref ?? `/government/departments/${department.slug}`}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      View
+                    </a>
+                  </Button>
                   <Button
                     variant="ghost"
                     size="sm"
@@ -185,6 +194,9 @@ export function DepartmentsView() {
                   <tr key={department.id} className="border-b last:border-0">
                     <td className="px-4 py-3">
                       <p className="font-medium">{department.title}</p>
+                      <p className="mt-1 text-xs text-muted-foreground">
+                        /{department.slug}
+                      </p>
                       <p className="mt-1 line-clamp-2 text-xs text-muted-foreground">
                         {department.description}
                       </p>
@@ -220,6 +232,15 @@ export function DepartmentsView() {
                           >
                             Edit
                           </Link>
+                        </Button>
+                        <Button variant="ghost" size="sm" asChild>
+                          <a
+                            href={`${publicSiteUrl}${department.publicHref ?? `/government/departments/${department.slug}`}`}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            View
+                          </a>
                         </Button>
                         <Button
                           variant="ghost"

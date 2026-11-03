@@ -7,6 +7,7 @@ import { usePathname, useRouter } from "next/navigation"
 import { HugeiconsIcon } from "@hugeicons/react"
 import {
   Briefcase01Icon,
+  Building03Icon,
   DashboardSquare01Icon,
   File01Icon,
   Invoice01Icon,
@@ -59,6 +60,11 @@ const navigation = [
   { href: "/dashboard/news", label: "News", icon: News01Icon },
   { href: "/dashboard/projects", label: "Projects", icon: Briefcase01Icon },
   { href: "/dashboard/people", label: "People", icon: UserGroupIcon },
+  {
+    href: "/dashboard/pages/departments/items",
+    label: "Departments",
+    icon: Building03Icon,
+  },
   { href: "/dashboard/pages", label: "Pages", icon: File01Icon },
   { href: "/dashboard/revenue", label: "Revenue", icon: Invoice01Icon },
   {

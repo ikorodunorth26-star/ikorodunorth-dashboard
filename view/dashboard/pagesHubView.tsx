@@ -98,7 +98,7 @@ const collectionSections = [
     publicPath: "/government/departments",
     eyebrow: "Directory",
     title: "Department items",
-    description: "Individual department and unit cards, including ICT detail profile.",
+    description: "All department and unit profiles with public slug pages, heads and homepage featured flags.",
     tone: "from-[#173d32] to-[#3d6a58]",
   },
 ] as const

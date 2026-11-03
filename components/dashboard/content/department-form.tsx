@@ -23,12 +23,14 @@ import {
   createDepartment,
   departmentGroupLabels,
   departmentIconOptions,
+  departmentPublicHref,
   getDepartment,
   saveReturnPath,
   updateDepartment,
   type ContentStatus,
   type DepartmentGroup,
 } from "@/lib"
+import { publicSiteUrl } from "@/lib/brand"
 import { showNotification } from "@/lib/showNotification"
 
 const groups = Object.keys(departmentGroupLabels) as DepartmentGroup[]
@@ -66,6 +68,7 @@ export function DepartmentForm({ id }: { id?: string }) {
   const [sortOrder, setSortOrder] = useState(0)
   const [status, setStatus] = useState<ContentStatus>("DRAFT")
   const [image, setImage] = useState<ImageDraft | null>(null)
+  const [hrefTouched, setHrefTouched] = useState(false)
 
   useEffect(() => {
     if (!id) return
@@ -83,10 +86,13 @@ export function DepartmentForm({ id }: { id?: string }) {
         setGroup(department.group)
         setHealth(department.health)
         setFeaturedOnHome(department.featuredOnHome)
-        setPublicHref(department.publicHref ?? "")
+        setPublicHref(
+          department.publicHref ?? departmentPublicHref(department.slug)
+        )
+        setHrefTouched(Boolean(department.publicHref))
         setHeadName(department.headName ?? "")
         setHeadRole(department.headRole ?? "")
-        setDetailHeading(department.detailHeading ?? "")
+        setDetailHeading(department.detailHeading ?? "About the department")
         setDetailParagraphs((department.detailParagraphs ?? []).join("\n\n"))
         setResponsibilities((department.responsibilities ?? []).join("\n"))
         setSortOrder(department.sortOrder)
@@ -121,8 +127,12 @@ export function DepartmentForm({ id }: { id?: string }) {
     event.preventDefault()
     setSaving(true)
     try {
+      const resolvedSlug = slug.trim()
+      const resolvedHref =
+        publicHref.trim() ||
+        (resolvedSlug ? departmentPublicHref(resolvedSlug) : "")
       const payload = {
-        slug: slug.trim() || undefined,
+        slug: resolvedSlug || undefined,
         title: title.trim(),
         description: description.trim(),
         email: email.trim(),
@@ -131,10 +141,10 @@ export function DepartmentForm({ id }: { id?: string }) {
         group,
         health,
         featuredOnHome,
-        publicHref: publicHref.trim() || null,
+        publicHref: resolvedHref || null,
         headName: headName.trim() || null,
         headRole: headRole.trim() || null,
-        detailHeading: detailHeading.trim() || null,
+        detailHeading: detailHeading.trim() || "About the department",
         detailParagraphs: detailParagraphs
           .split(/\n\s*\n/)
           .map((part) => part.trim())
@@ -207,7 +217,13 @@ export function DepartmentForm({ id }: { id?: string }) {
                 <Input
                   id="slug"
                   value={slug}
-                  onChange={(event) => setSlug(event.target.value)}
+                  onChange={(event) => {
+                    const next = event.target.value
+                    setSlug(next)
+                    if (!hrefTouched) {
+                      setPublicHref(departmentPublicHref(next))
+                    }
+                  }}
                   placeholder="auto from title"
                 />
               </div>
@@ -280,9 +296,22 @@ export function DepartmentForm({ id }: { id?: string }) {
                 <Input
                   id="href"
                   value={publicHref}
-                  onChange={(event) => setPublicHref(event.target.value)}
+                  onChange={(event) => {
+                    setHrefTouched(true)
+                    setPublicHref(event.target.value)
+                  }}
                   placeholder="/government/departments/…"
                 />
+                {publicHref.trim() ? (
+                  <a
+                    href={`${publicSiteUrl}${publicHref.trim().startsWith("/") ? "" : "/"}${publicHref.trim()}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-xs text-muted-foreground underline-offset-2 hover:underline"
+                  >
+                    Open public department page
+                  </a>
+                ) : null}
               </div>
               <label className="flex items-center gap-2 text-sm">
                 <input
