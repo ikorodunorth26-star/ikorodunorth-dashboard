@@ -1,7 +1,5 @@
-import { SiteDocumentView } from "@/view/dashboard/siteDocumentView"
+import { DepartmentsChromePageView } from "@/view/dashboard/departmentsChromePageView"
 
-const DepartmentsChromePage = () => (
-  <SiteDocumentView documentKey="departments" />
-)
+const DepartmentsChromeEditorPage = () => <DepartmentsChromePageView />
 
-export default DepartmentsChromePage
+export default DepartmentsChromeEditorPage

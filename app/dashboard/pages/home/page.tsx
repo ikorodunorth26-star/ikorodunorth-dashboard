@@ -1,5 +1,5 @@
-import { SiteDocumentView } from "@/view/dashboard/siteDocumentView"
+import { HomePageView } from "@/view/dashboard/homePageView"
 
-const HomeEditorPage = () => <SiteDocumentView documentKey="home" />
+const HomeEditorPage = () => <HomePageView />
 
 export default HomeEditorPage

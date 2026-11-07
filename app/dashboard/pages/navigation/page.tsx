@@ -1,5 +1,5 @@
-import { SiteDocumentView } from "@/view/dashboard/siteDocumentView"
+import { NavigationPageView } from "@/view/dashboard/navigationPageView"
 
-const NavigationEditorPage = () => <SiteDocumentView documentKey="navigation" />
+const NavigationEditorPage = () => <NavigationPageView />
 
 export default NavigationEditorPage

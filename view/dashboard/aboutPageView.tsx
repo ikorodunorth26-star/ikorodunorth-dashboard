@@ -8,6 +8,7 @@ import {
   FeaturedImageField,
   type ImageDraft,
 } from "@/components/dashboard/content/media-fields"
+import { RepeatableList } from "@/components/dashboard/content/repeatable-list"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -102,14 +103,18 @@ export function AboutPageView() {
   const [impactStats, setImpactStats] = useState("")
   const [historyHeading, setHistoryHeading] = useState("")
   const [historyIntroduction, setHistoryIntroduction] = useState("")
-  const [historyJson, setHistoryJson] = useState("[]")
+  const [chapters, setChapters] = useState<
+    Array<{ number: string; title: string; paragraphsText: string; pointsText: string }>
+  >([])
   const [communityHeading, setCommunityHeading] = useState("")
   const [communityParagraphs, setCommunityParagraphs] = useState("")
   const [communityCta, setCommunityCta] = useState("")
   const [communityHref, setCommunityHref] = useState("/news")
   const [relatedEyebrow, setRelatedEyebrow] = useState("")
   const [relatedTitle, setRelatedTitle] = useState("")
-  const [relatedJson, setRelatedJson] = useState("[]")
+  const [relatedLinks, setRelatedLinks] = useState<
+    Array<{ title: string; description: string; href: string }>
+  >([])
 
   const load = useCallback(() => {
     setLoading(true)
@@ -151,14 +156,21 @@ export function AboutPageView() {
         )
         setHistoryHeading(content.history?.heading ?? "")
         setHistoryIntroduction(content.history?.introduction ?? "")
-        setHistoryJson(JSON.stringify(content.history?.chapters ?? [], null, 2))
+        setChapters(
+          (content.history?.chapters ?? []).map((chapter) => ({
+            number: chapter.number,
+            title: chapter.title,
+            paragraphsText: (chapter.paragraphs ?? []).join("\n\n"),
+            pointsText: (chapter.points ?? []).join("\n"),
+          })),
+        )
         setCommunityHeading(content.community?.heading ?? "")
         setCommunityParagraphs((content.community?.paragraphs ?? []).join("\n\n"))
         setCommunityCta(content.community?.cta ?? "")
         setCommunityHref(content.community?.href ?? "/news")
         setRelatedEyebrow(content.related?.eyebrow ?? "")
         setRelatedTitle(content.related?.title ?? "")
-        setRelatedJson(JSON.stringify(content.related?.links ?? [], null, 2))
+        setRelatedLinks(content.related?.links ?? [])
       })
       .catch((caught: unknown) => {
         if (caught instanceof ApiError && caught.statusCode === 404) {
@@ -181,17 +193,6 @@ export function AboutPageView() {
 
   async function save(event: FormEvent) {
     event.preventDefault()
-    let chapters: AboutContent["history"] extends { chapters?: infer C }
-      ? C
-      : never
-    let links: Array<{ title: string; description: string; href: string }>
-    try {
-      chapters = JSON.parse(historyJson) as typeof chapters
-      links = JSON.parse(relatedJson) as typeof links
-    } catch {
-      showNotification({ type: "error", message: "History or related JSON is invalid" })
-      return
-    }
 
     const stats = impactStats
       .split("\n")
@@ -239,7 +240,15 @@ export function AboutPageView() {
           history: {
             heading: historyHeading.trim(),
             introduction: historyIntroduction.trim(),
-            chapters,
+            chapters: chapters.map((chapter, index) => ({
+              number: chapter.number.trim() || String(index + 1).padStart(2, "0"),
+              title: chapter.title.trim(),
+              paragraphs: chapter.paragraphsText
+                .split(/\n\s*\n/)
+                .map((part) => part.trim())
+                .filter(Boolean),
+              points: lines(chapter.pointsText),
+            })),
           },
           community: {
             heading: communityHeading.trim(),
@@ -255,7 +264,13 @@ export function AboutPageView() {
           related: {
             eyebrow: relatedEyebrow.trim(),
             title: relatedTitle.trim(),
-            links,
+            links: relatedLinks
+              .map((link) => ({
+                title: link.title.trim(),
+                description: link.description.trim(),
+                href: link.href.trim(),
+              }))
+              .filter((link) => link.title || link.href),
           },
         },
       })
@@ -400,8 +415,7 @@ export function AboutPageView() {
 
           <Card>
             <CardHeader>
-              <CardTitle>History</CardTitle>
-              <CardDescription>Chapters as JSON array with number, title, paragraphs, optional points.</CardDescription>
+              <CardTitle>History intro</CardTitle>
             </CardHeader>
             <CardContent className="flex flex-col gap-4">
               <Textarea
@@ -416,18 +430,65 @@ export function AboutPageView() {
                 onChange={(e) => setHistoryIntroduction(e.target.value)}
                 placeholder="Introduction"
               />
-              <Textarea
-                value={historyJson}
-                rows={12}
-                className="font-mono text-xs"
-                onChange={(e) => setHistoryJson(e.target.value)}
-              />
             </CardContent>
           </Card>
 
+          <RepeatableList
+            title="History chapters"
+            description="Add chapters with paragraphs and optional bullet points."
+            items={chapters}
+            onChange={setChapters}
+            createItem={() => ({
+              number: "",
+              title: "",
+              paragraphsText: "",
+              pointsText: "",
+            })}
+            addLabel="Add chapter"
+            renderItem={(item, _index, update) => (
+              <div className="flex flex-col gap-3">
+                <div className="grid gap-3 sm:grid-cols-[120px_minmax(0,1fr)]">
+                  <div className="flex flex-col gap-2">
+                    <Label>Number</Label>
+                    <Input
+                      value={item.number}
+                      onChange={(e) => update({ number: e.target.value })}
+                    />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <Label>Title</Label>
+                    <Input
+                      value={item.title}
+                      onChange={(e) => update({ title: e.target.value })}
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-col gap-2">
+                  <Label>Paragraphs</Label>
+                  <Textarea
+                    rows={4}
+                    value={item.paragraphsText}
+                    onChange={(e) => update({ paragraphsText: e.target.value })}
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Separate paragraphs with a blank line.
+                  </p>
+                </div>
+                <div className="flex flex-col gap-2">
+                  <Label>Points (optional, one per line)</Label>
+                  <Textarea
+                    rows={4}
+                    value={item.pointsText}
+                    onChange={(e) => update({ pointsText: e.target.value })}
+                  />
+                </div>
+              </div>
+            )}
+          />
+
           <Card>
             <CardHeader>
-              <CardTitle>Community band & related links</CardTitle>
+              <CardTitle>Community band</CardTitle>
             </CardHeader>
             <CardContent className="flex flex-col gap-4">
               <Textarea
@@ -452,6 +513,14 @@ export function AboutPageView() {
                   placeholder="/news"
                 />
               </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Related section</CardTitle>
+            </CardHeader>
+            <CardContent className="flex flex-col gap-4">
               <Input
                 value={relatedEyebrow}
                 onChange={(e) => setRelatedEyebrow(e.target.value)}
@@ -462,14 +531,42 @@ export function AboutPageView() {
                 onChange={(e) => setRelatedTitle(e.target.value)}
                 placeholder="Related title"
               />
-              <Textarea
-                value={relatedJson}
-                rows={8}
-                className="font-mono text-xs"
-                onChange={(e) => setRelatedJson(e.target.value)}
-              />
             </CardContent>
           </Card>
+
+          <RepeatableList
+            title="Related links"
+            items={relatedLinks}
+            onChange={setRelatedLinks}
+            createItem={() => ({ title: "", description: "", href: "/" })}
+            addLabel="Add related link"
+            renderItem={(item, _index, update) => (
+              <div className="flex flex-col gap-3">
+                <div className="flex flex-col gap-2">
+                  <Label>Title</Label>
+                  <Input
+                    value={item.title}
+                    onChange={(e) => update({ title: e.target.value })}
+                  />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <Label>Description</Label>
+                  <Textarea
+                    rows={2}
+                    value={item.description}
+                    onChange={(e) => update({ description: e.target.value })}
+                  />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <Label>Href</Label>
+                  <Input
+                    value={item.href}
+                    onChange={(e) => update({ href: e.target.value })}
+                  />
+                </div>
+              </div>
+            )}
+          />
         </div>
 
         <div className="flex flex-col gap-6">

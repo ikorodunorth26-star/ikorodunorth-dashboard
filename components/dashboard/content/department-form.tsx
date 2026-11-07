@@ -92,7 +92,7 @@ export function DepartmentForm({ id }: { id?: string }) {
         setHrefTouched(Boolean(department.publicHref))
         setHeadName(department.headName ?? "")
         setHeadRole(department.headRole ?? "")
-        setDetailHeading(department.detailHeading ?? "About the department")
+        setDetailHeading(department.detailHeading ?? "Overview")
         setDetailParagraphs((department.detailParagraphs ?? []).join("\n\n"))
         setResponsibilities((department.responsibilities ?? []).join("\n"))
         setSortOrder(department.sortOrder)
@@ -144,7 +144,7 @@ export function DepartmentForm({ id }: { id?: string }) {
         publicHref: resolvedHref || null,
         headName: headName.trim() || null,
         headRole: headRole.trim() || null,
-        detailHeading: detailHeading.trim() || "About the department",
+        detailHeading: detailHeading.trim() || "Overview",
         detailParagraphs: detailParagraphs
           .split(/\n\s*\n/)
           .map((part) => part.trim())
@@ -356,7 +356,7 @@ export function DepartmentForm({ id }: { id?: string }) {
                 </div>
               </div>
               <div className="flex flex-col gap-2">
-                <Label htmlFor="detailHeading">About heading</Label>
+                <Label htmlFor="detailHeading">Overview heading</Label>
                 <Input
                   id="detailHeading"
                   value={detailHeading}
@@ -364,7 +364,7 @@ export function DepartmentForm({ id }: { id?: string }) {
                 />
               </div>
               <div className="flex flex-col gap-2">
-                <Label htmlFor="detailParagraphs">About paragraphs</Label>
+                <Label htmlFor="detailParagraphs">Overview paragraphs</Label>
                 <Textarea
                   id="detailParagraphs"
                   rows={5}

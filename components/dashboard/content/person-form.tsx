@@ -191,7 +191,9 @@ export function PersonForm({
           <Card>
             <CardHeader>
               <CardTitle>Profile</CardTitle>
-              <CardDescription>Name, office and optional biography.</CardDescription>
+              <CardDescription>
+                Name, office and biography. Biography content enables the public profile page.
+              </CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col gap-4">
               <div className="grid gap-4 sm:grid-cols-2">
@@ -260,8 +262,13 @@ export function PersonForm({
                     value={bio}
                     rows={6}
                     onChange={(event) => setBio(event.target.value)}
-                    placeholder="Optional short biography"
+                    placeholder="Write a short public biography (at least a few sentences)"
                   />
+                  <p className="text-xs text-muted-foreground">
+                    A published biography of about 40+ characters unlocks this person’s public
+                    profile page on the website. Without it, their card stays on the team listing
+                    only — no empty profile page is shown.
+                  </p>
                 </div>
               </div>
             </CardContent>

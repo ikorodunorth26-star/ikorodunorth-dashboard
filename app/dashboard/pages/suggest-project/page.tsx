@@ -1,7 +1,5 @@
-import { SiteDocumentView } from "@/view/dashboard/siteDocumentView"
+import { SuggestProjectPageView } from "@/view/dashboard/suggestProjectPageView"
 
-const SuggestProjectEditorPage = () => (
-  <SiteDocumentView documentKey="suggest_project" />
-)
+const SuggestProjectEditorPage = () => <SuggestProjectPageView />
 
 export default SuggestProjectEditorPage

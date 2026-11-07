@@ -1,5 +1,5 @@
-import { SiteDocumentView } from "@/view/dashboard/siteDocumentView"
+import { ContactPageView } from "@/view/dashboard/contactPageView"
 
-const ContactEditorPage = () => <SiteDocumentView documentKey="contact" />
+const ContactEditorPage = () => <ContactPageView />
 
 export default ContactEditorPage

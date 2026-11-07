@@ -12,7 +12,7 @@ const pageSections = [
     publicPath: "/",
     eyebrow: "Landing",
     title: "Home",
-    description: "Hero, editorial slides, section copy and curated home strips.",
+    description: "Welcome hero, homepage slider slides, section copy and curated home strips.",
     tone: "from-[#173d32] to-[#2a5a48]",
   },
   {

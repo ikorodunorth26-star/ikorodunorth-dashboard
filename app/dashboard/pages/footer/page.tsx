@@ -1,5 +1,5 @@
-import { SiteDocumentView } from "@/view/dashboard/siteDocumentView"
+import { FooterPageView } from "@/view/dashboard/footerPageView"
 
-const FooterEditorPage = () => <SiteDocumentView documentKey="footer" />
+const FooterEditorPage = () => <FooterPageView />
 
 export default FooterEditorPage

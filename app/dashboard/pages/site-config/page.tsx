@@ -1,5 +1,5 @@
-import { SiteDocumentView } from "@/view/dashboard/siteDocumentView"
+import { SiteConfigPageView } from "@/view/dashboard/siteConfigPageView"
 
-const SiteConfigEditorPage = () => <SiteDocumentView documentKey="site_config" />
+const SiteConfigEditorPage = () => <SiteConfigPageView />
 
 export default SiteConfigEditorPage

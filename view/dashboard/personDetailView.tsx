@@ -161,7 +161,9 @@ export function PersonDetailView({ id }: { id: string }) {
               {person.bio}
             </div>
           ) : (
-            <p className="text-sm text-muted-foreground">No biography yet.</p>
+            <p className="text-sm text-muted-foreground">
+              No biography yet. Add one to publish a public profile page on the website.
+            </p>
           )}
         </div>
       </div>
